@@ -111,68 +111,6 @@
   .hidden{display:none}
   .hint{font-size:12.5px;color:var(--sub);margin-top:6px}
   footer.note{text-align:center;color:var(--sub);font-size:12px;padding:14px}
-
-  /* 公開ウィザード */
-  .wiz{grid-column:1/-1}
-  .wiz-progress{display:flex;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap}
-  .wiz-bar{flex:1;min-width:180px;height:10px;background:var(--line);border-radius:5px;overflow:hidden}
-  .wiz-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#2563eb,#0ea5e9);transition:width .3s}
-  .wiz-count{font-size:13px;font-weight:700;color:var(--sub);white-space:nowrap}
-  .btn-reset{background:#fff;color:var(--sub);border:2px solid var(--line);padding:8px 12px;font-size:12.5px}
-  .btn-reset:hover{border-color:var(--alert);color:var(--alert)}
-  .phase{border:2px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden}
-  .phase.done{border-color:var(--jp)}
-  .phase-h{display:flex;align-items:center;gap:10px;padding:13px 16px;background:#f7fafd;cursor:pointer;user-select:none}
-  .phase.done .phase-h{background:#e9faf3}
-  .phase-h .badge{width:30px;height:30px;border-radius:50%;background:var(--brand);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:800;flex:none}
-  .phase.done .phase-h .badge{background:var(--jp)}
-  .phase-h b{font-size:15px}
-  .phase-h .st{margin-left:auto;font-size:12.5px;font-weight:700;color:var(--sub);white-space:nowrap}
-  .phase-b{padding:14px 16px;border-top:1px solid var(--line)}
-  .phase.closed .phase-b{display:none}
-  .chk{display:flex;gap:10px;align-items:flex-start;padding:9px 10px;border-radius:9px;cursor:pointer;transition:.12s;font-size:14px}
-  .chk:hover{background:var(--brand-l)}
-  .chk input{width:19px;height:19px;margin-top:2px;flex:none;accent-color:var(--jp);cursor:pointer}
-  .chk.on{opacity:.55}
-  .chk .tip{display:block;font-size:12px;color:var(--sub);margin-top:2px;font-weight:400}
-  .wiz-act{margin:4px 0 12px}
-  .qr-row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
-  .qr-row input[type=url]{flex:1;min-width:260px;font-family:inherit;font-size:14px;color:var(--ink);border:2px solid var(--line);border-radius:11px;padding:11px}
-  .qr-row input[type=url]:focus{outline:none;border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-l)}
-  .qr-box{display:none;text-align:center;background:#fff;border:2px solid var(--line);border-radius:12px;padding:18px;margin:8px 0 4px}
-  .qr-box.show{display:block}
-  .qr-box canvas{image-rendering:pixelated;max-width:240px;width:100%;height:auto}
-  .qr-err{color:var(--alert);font-size:13px;font-weight:700;margin:4px 0}
-
-  /* フローステッパー（常時表示・現在地ナビ） */
-  .flowbar{position:sticky;top:0;z-index:60;background:#fff;box-shadow:0 4px 14px rgba(31,45,61,.12);padding:10px 22px 12px}
-  .flow{display:flex;align-items:center;gap:8px;max-width:1500px;margin:0 auto}
-  .fstep{display:flex;align-items:center;gap:9px;border:none;background:none;cursor:pointer;font-family:inherit;padding:6px 8px;border-radius:10px;transition:.15s}
-  .fstep:hover{background:var(--brand-l)}
-  .fs-num{width:34px;height:34px;border-radius:50%;background:#dfe7f0;color:var(--sub);display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex:none;transition:.2s}
-  .fs-txt{text-align:left;font-size:11.5px;color:var(--sub);line-height:1.25}
-  .fs-txt b{display:block;font-size:13.5px;color:var(--ink)}
-  .fstep.done .fs-num{background:var(--jp);color:#fff}
-  .fstep.cur .fs-num{background:var(--brand);color:#fff;animation:pulse 1.6s infinite}
-  .fstep.cur .fs-txt b{color:var(--brand)}
-  .fstep.todo{opacity:.6}
-  .fline{flex:1;height:4px;background:var(--line);border-radius:2px;min-width:14px}
-  .fline.done{background:var(--jp)}
-  @keyframes pulse{0%,100%{box-shadow:0 0 0 4px var(--brand-l)}50%{box-shadow:0 0 0 9px rgba(37,99,235,.10)}}
-  .nextact{max-width:1500px;margin:8px auto 0;background:var(--brand-l);border:1.5px solid #9bb8f5;color:#1e3a8a;border-radius:10px;padding:9px 14px;font-size:13.5px;cursor:pointer;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-  .nextact:hover{border-color:var(--brand)}
-  .nextact b{font-weight:800}
-  .na-go{margin-left:auto;font-size:12px;font-weight:700;color:var(--brand);white-space:nowrap}
-  .nextact.alldone{background:#e9faf3;border-color:var(--jp);color:#065f46;cursor:default}
-  @media (max-width:760px){ .fs-txt{display:none} .fstep{padding:6px} }
-
-  /* 現在フェーズの強調と「つぎはこれ」ハイライト */
-  .panel,.phase{scroll-margin-top:130px}
-  .phase.cur{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-l)}
-  .phase.cur .phase-h{background:var(--brand-l)}
-  .phase.cur .phase-h .badge{animation:pulse 1.6s infinite}
-  .chk.next{background:var(--brand-l);outline:2px dashed var(--brand);outline-offset:-2px}
-  .chk.next::after{content:"👈 つぎはこれ";font-size:11.5px;font-weight:800;color:var(--brand);white-space:nowrap;margin-left:auto;align-self:center}
 </style>
 </head>
 <body>
@@ -181,26 +119,9 @@
   <p>特別支援学校（知的障害）教職員向け ／ ラーニングマップ準拠・Vibe Coding 支援システム</p>
 </header>
 
-<!-- フローステッパー：作成→公開までの現在地を常時表示 -->
-<div class="flowbar">
-  <nav class="flow" aria-label="アプリ公開までの流れ">
-    <button class="fstep" id="fs-a"><span class="fs-num">1</span><span class="fs-txt">このアプリで<b>プロンプト生成</b></span></button>
-    <span class="fline" id="fl-1"></span>
-    <button class="fstep" id="fs-b"><span class="fs-num">2</span><span class="fs-txt">Gemini で<b>アプリをつくる</b></span></button>
-    <span class="fline" id="fl-2"></span>
-    <button class="fstep" id="fs-c"><span class="fs-num">3</span><span class="fs-txt">Googleサイトで<b>公開する</b></span></button>
-    <span class="fline" id="fl-3"></span>
-    <button class="fstep" id="fs-d"><span class="fs-num">4</span><span class="fs-txt">QRコードで<b>iPad にとどける</b></span></button>
-  </nav>
-  <div class="nextact" id="nextact">
-    <span id="nextact-pre">👉 つぎにやること：</span><b id="nextact-txt"></b>
-    <span class="na-go" id="na-go">クリックで移動 ▸</span>
-  </div>
-</div>
-
 <div class="wrap">
   <!-- 左カラム：入力フォーム -->
-  <section class="panel" id="form-panel">
+  <section class="panel">
     <h2><span class="dot"></span>じったい・アイデア入力フォーム</h2>
 
     <div class="alert">
@@ -274,82 +195,15 @@
       <div class="out-actions">
         <button class="btn btn-copy" id="copy">📋 プロンプトをコピー</button>
         <a class="btn btn-gem" id="gemini" href="https://gemini.google.com/app" target="_blank" rel="noopener">🤖 Gemini をひらく ↗</a>
-        <button class="btn btn-gem" id="goto-wiz">▼ つぎのステップへ</button>
       </div>
       <pre class="code" id="code"></pre>
-      <div class="hint">このプロンプトをコピーして Gemini に貼り付けると、iPad／Googleサイト対応の単一HTML教材アプリが生成されます。つづきは下の「公開ウィザード」に沿って進めると、iPadで使えるところまで完了できます。</div>
-    </div>
-  </section>
-
-  <!-- 下段：公開ウィザード -->
-  <section class="panel wiz" id="wiz">
-    <h2><span class="dot"></span>公開ウィザード（Gemini → Googleサイト → iPad）</h2>
-    <div class="wiz-progress">
-      <div class="wiz-bar"><i id="wiz-fill"></i></div>
-      <span class="wiz-count" id="wiz-count"></span>
-      <button class="btn btn-reset" id="wiz-reset">🔄 進捗をリセット（次のアプリ用）</button>
-    </div>
-
-    <div class="phase" id="ph-a">
-      <div class="phase-h"><span class="badge">1</span><b>プロンプトをつくる（このアプリ）</b><span class="st"></span></div>
-      <div class="phase-b">
-        <label class="chk"><input type="checkbox" id="c-a1"><span>上のフォームに入力して「✨ 最適化プロンプトを生成する」を押す<span class="tip">生成すると自動でチェックされます。</span></span></label>
-      </div>
-    </div>
-
-    <div class="phase" id="ph-b">
-      <div class="phase-h"><span class="badge">2</span><b>Gemini でアプリをつくる</b><span class="st"></span></div>
-      <div class="phase-b">
-        <div class="wiz-act"><button class="btn btn-copy" id="wiz-gem" disabled>📋 プロンプトをコピーして Gemini をひらく ↗</button></div>
-        <label class="chk"><input type="checkbox" id="c-b1"><span>Gemini の「＋」マークから「Canvas」をえらぶ<span class="tip">コードが独立したウィンドウで管理され、その後のアプリ開発が格段に行いやすくなります。</span></span></label>
-        <label class="chk"><input type="checkbox" id="c-b2"><span>モデル選択メニューで「思考モード」をえらぶ<span class="tip">アプリ作成のような複雑なプログラム生成に適した、高度な推論モデルに切り替わります。</span></span></label>
-        <label class="chk"><input type="checkbox" id="c-b3"><span>プロンプトを貼り付けて送信し、右側のプレビューで動作を確認する<span class="tip">直したい所があればチャットでそのまま指示できます（例：「イラストが小さいので中央に大きく表示させて」）。</span></span></label>
-        <label class="chk"><input type="checkbox" id="c-b4"><span>プレビュー右上の共有アイコン →「内容をコピー」でコードを取得する<span class="tip">最初のタグから最後のタグまで漏れなくコピーできているか確認。不完全だとアプリが正しく動きません。</span></span></label>
-      </div>
-    </div>
-
-    <div class="phase" id="ph-c">
-      <div class="phase-h"><span class="badge">3</span><b>Googleサイトに埋め込んで公開する</b><span class="st"></span></div>
-      <div class="phase-b">
-        <div class="wiz-act"><a class="btn btn-gem" href="https://sites.google.com" target="_blank" rel="noopener">🌐 Googleサイトをひらく ↗</a></div>
-        <label class="chk"><input type="checkbox" id="c-c1"><span>「空白のサイト（＋）」で配布用サイトを新規作成する（作成済みなら一覧からひらく）</span></label>
-        <label class="chk"><input type="checkbox" id="c-c2"><span>「ページ」タブ →「＋」→「ページ全体の埋め込み」→ 名前を入力して「完了」<span class="tip">児童生徒が見て何のアプリか分かるよう、ひらがなの簡潔な名前（例：ひらがなあぷり）がおすすめ。</span></span></label>
-        <label class="chk"><input type="checkbox" id="c-c3"><span>「埋め込みコード」タブに Gemini でコピーしたコードを貼り付け →「次へ」→ プレビューを確認して「挿入」</span></label>
-        <label class="chk"><input type="checkbox" id="c-c4"><span>アプリページを縦3点メニューから「ホームページに設定」し、元の空ページを「削除」<span class="tip">作成したアプリページのほうを削除しないよう注意。</span></span></label>
-        <label class="chk"><input type="checkbox" id="c-c5"><span>共有設定の「一般的なアクセス」を所属組織など適切な範囲にして「完了」</span></label>
-        <label class="chk"><input type="checkbox" id="c-c6"><span>右上の青い「公開」→ 下書きの内容を確認して公開を確定する<span class="tip">初回はウェブアドレスを決める画面が出ます。シンプルな英単語がおすすめ。</span></span></label>
-        <label class="chk"><input type="checkbox" id="c-c7"><span>「公開サイトリンク」の「リンクをコピー」で公開URLを取得する</span></label>
-      </div>
-    </div>
-
-    <div class="phase" id="ph-d">
-      <div class="phase-h"><span class="badge">4</span><b>QRコードをつくって iPad にとどける</b><span class="st"></span></div>
-      <div class="phase-b">
-        <div class="qr-row">
-          <input type="url" id="pub-url" placeholder="公開サイトのリンク（https://sites.google.com/…）をここに貼り付け">
-          <button class="btn btn-copy" id="qr-gen" style="flex:none">🔳 QRコードを生成</button>
-        </div>
-        <div class="qr-err" id="qr-err"></div>
-        <div class="qr-box" id="qr-box">
-          <canvas id="qr-cv"></canvas>
-          <p style="font-size:12px;color:var(--sub);word-break:break-all;margin:8px 0" id="qr-url-lbl"></p>
-          <div class="out-actions" style="justify-content:center;margin:0">
-            <button class="btn btn-gem" id="qr-print">🖨 印刷する</button>
-            <button class="btn btn-gem" id="qr-dl">⬇ 画像を保存</button>
-          </div>
-        </div>
-        <label class="chk" style="margin-top:8px"><input type="checkbox" id="c-d1"><span>iPad のカメラで QRコードを読み取り、Safari でページをひらく</span></label>
-        <label class="chk"><input type="checkbox" id="c-d2"><span>共有アイコン（□に↑）→「ホーム画面に追加」→ 右上の「追加」をタップ<span class="tip">アイコンの名前は入力欄をタップしてひらがな等に変更できます。</span></span></label>
-        <label class="chk"><input type="checkbox" id="c-d3"><span>ホーム画面のアイコンからひらけたら完成！<span class="tip">アドレスバーが隠れた、アプリのような全画面表示になります。</span></span></label>
-      </div>
+      <div class="hint">このプロンプトをコピーして Gemini に貼り付けると、iPad／Googleサイト対応の単一HTML教材アプリが生成されます。</div>
     </div>
   </section>
 </div>
 
 <footer class="note">© 特別支援教育 教材づくり支援システム ／ 生成物の動作環境：iPad（Safari）＋ Googleサイト埋め込み</footer>
 
-<!-- QRコード生成: qrcode-generator v1.4.4 (MIT License, Kazuhiko Arase) -->
-<script src="qrcode.min.js"></script>
 <script>
 let MAP = null;
 
@@ -361,7 +215,7 @@ fetch('data/learning_map.json')
   .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
   .then(j => {
     MAP = j.subjects;
-    // 読込完了前に教科が選択済みなら、ここで段階を構築（クリックが無反応になる競合の回避）
+    // 読込完了前に教科が選択済みの場合、ここで段階を構築（クリックが無反応になる競合の回避）
     const sel = document.querySelector('input[name=subject]:checked');
     if(sel) buildStages(sel.value);
   })
@@ -374,8 +228,10 @@ fetch('data/learning_map.json')
 // ① 教科
 document.querySelectorAll('input[name=subject]').forEach(r=>{
   r.addEventListener('change', ()=>{
-    $('r-jp').classList.toggle('on', r.value==='国語');
-    $('r-su').classList.toggle('on', r.value==='算数・数学');
+    $('r-jp').classList.toggle('on', r.value==='国語' && r.checked);
+    $('r-su').classList.toggle('on', r.value==='算数・数学' && r.checked);
+    if(r.value==='国語'){$('r-jp').classList.add('on');$('r-su').classList.remove('on');}
+    else{$('r-su').classList.add('on');$('r-jp').classList.remove('on');}
     buildStages(r.value);
   });
 });
@@ -450,7 +306,6 @@ elGen.addEventListener('click', ()=>{
   $('out-empty').classList.add('hidden');
   $('out-result').classList.remove('hidden');
   $('out-result').scrollIntoView({behavior:'smooth',block:'start'});
-  markPromptDone();
 });
 
 function buildPrompt(d){
@@ -499,185 +354,6 @@ $('copy').addEventListener('click', async ()=>{
   const b=$('copy'); b.classList.add('done'); b.textContent='✅ コピーしました！';
   setTimeout(()=>{ b.classList.remove('done'); b.textContent='📋 プロンプトをコピー'; }, 1800);
 });
-
-/* ===================== 公開ウィザード =====================
- * PC操作マニュアル（Gemini→Googleサイト→iPad）の全工程をアプリ内で案内。
- * 進捗と公開URLは localStorage に保存。QRコードはライブラリで端末内生成
- * （外部サービスに一切送信しない）。 */
-const WKEY='pg_wizard_v1';
-let wizState;
-try{ wizState = JSON.parse(localStorage.getItem(WKEY)) || {}; }catch(e){ wizState = {}; }
-wizState.checks = wizState.checks || {};
-function wizSave(){ try{ localStorage.setItem(WKEY, JSON.stringify(wizState)); }catch(e){} }
-
-const wizChecks = Array.from(document.querySelectorAll('#wiz .chk input'));
-function syncChk(ch){ ch.closest('.chk').classList.toggle('on', ch.checked); }
-wizChecks.forEach(ch=>{
-  if(wizState.checks[ch.id]) ch.checked = true;
-  syncChk(ch);
-  ch.addEventListener('change', ()=>{ wizState.checks[ch.id]=ch.checked; wizSave(); syncChk(ch); wizUpdate(); });
-});
-
-/* --- 現在地の判定とナビゲーション --- */
-const PHASES=['a','b','c','d'];
-function phaseChecks(k){ return Array.from(document.querySelectorAll('#ph-'+k+' .chk input')); }
-function phaseDone(k){ const cs=phaseChecks(k); return cs.length>0 && cs.every(c=>c.checked); }
-function currentPhase(){ for(const k of PHASES){ if(!phaseDone(k)) return k; } return null; }
-let prevDone=null; // 前回の完了状態（フェーズ完了時に自動で次を開く判定用）
-
-function openPhase(k, scroll){
-  PHASES.forEach(p=>{ $('ph-'+p).classList.toggle('closed', p!==k); });
-  if(scroll) $('ph-'+k).scrollIntoView({behavior:'smooth',block:'start'});
-}
-function gotoStage(k){
-  if(k==='a'){ $('form-panel').scrollIntoView({behavior:'smooth',block:'start'}); return; }
-  openPhase(k, true);
-}
-function chkLabel(input){
-  const sp=input.parentElement.querySelector('span');
-  return sp ? sp.childNodes[0].textContent.trim() : '';
-}
-
-function wizUpdate(){
-  const total=wizChecks.length, done=wizChecks.filter(c=>c.checked).length;
-  $('wiz-fill').style.width=(done/total*100)+'%';
-  $('wiz-count').textContent=`${done} / ${total} かんりょう`;
-  document.querySelectorAll('#wiz .phase').forEach(p=>{
-    const cs=Array.from(p.querySelectorAll('.chk input'));
-    const ok=cs.length>0 && cs.every(c=>c.checked);
-    p.classList.toggle('done', ok);
-    p.querySelector('.st').textContent = ok ? '✅ かんりょう' : `${cs.filter(c=>c.checked).length}/${cs.length}`;
-  });
-
-  const cur=currentPhase();
-  // 現在フェーズの強調＋ステッパー更新
-  PHASES.forEach((k,i)=>{
-    $('ph-'+k).classList.toggle('cur', k===cur);
-    const fs=$('fs-'+k), ok=phaseDone(k);
-    fs.classList.toggle('done', ok);
-    fs.classList.toggle('cur', k===cur);
-    fs.classList.toggle('todo', !ok && k!==cur);
-    fs.querySelector('.fs-num').textContent = ok ? '✓' : (i+1);
-    if(i<PHASES.length-1) $('fl-'+(i+1)).classList.toggle('done', ok);
-  });
-
-  // 「👉 つぎにやること」バナー＋次項目のハイライト
-  document.querySelectorAll('#wiz .chk.next').forEach(e=>e.classList.remove('next'));
-  const firstUn=wizChecks.find(c=>!c.checked);
-  if(firstUn){
-    $('nextact').classList.remove('alldone');
-    $('nextact-pre').style.display='';
-    $('na-go').style.display='';
-    $('nextact-txt').textContent=chkLabel(firstUn);
-    firstUn.closest('.chk').classList.add('next');
-  }else{
-    $('nextact').classList.add('alldone');
-    $('nextact-pre').style.display='none';
-    $('na-go').style.display='none';
-    $('nextact-txt').textContent='🎉 すべて完了！児童のiPadホーム画面からアプリが使えます';
-  }
-
-  // フェーズが新たに完了したら自動で閉じて次を開く
-  if(prevDone){
-    PHASES.forEach(k=>{
-      if(!prevDone[k] && phaseDone(k) && cur){
-        openPhase(cur, k!=='a'); // プロンプト生成直後は出力を見せたいのでスクロールしない
-      }
-    });
-  }
-  prevDone={}; PHASES.forEach(k=>{ prevDone[k]=phaseDone(k); });
-}
-
-// フェーズ見出しクリックで開閉
-document.querySelectorAll('#wiz .phase-h').forEach(h=>{
-  h.addEventListener('click', ()=> h.parentElement.classList.toggle('closed'));
-});
-// ステッパー・バナー・出力パネルの「つぎへ」からの移動
-PHASES.forEach(k=> $('fs-'+k).addEventListener('click', ()=>gotoStage(k)));
-$('nextact').addEventListener('click', ()=>{ const c=currentPhase(); if(c) gotoStage(c); });
-$('goto-wiz').addEventListener('click', ()=>{ const c=currentPhase(); gotoStage((!c || c==='a') ? 'b' : c); });
-
-// STEP1: プロンプト生成と連動（自動チェック）
-function markPromptDone(){
-  const a=$('c-a1');
-  if(!a.checked){ a.checked=true; wizState.checks[a.id]=true; wizSave(); syncChk(a); wizUpdate(); }
-  $('wiz-gem').disabled=false;
-}
-
-// STEP2: プロンプトをコピーして Gemini を開く
-$('wiz-gem').addEventListener('click', async ()=>{
-  const t=$('code').textContent;
-  if(!t) return;
-  try{ await navigator.clipboard.writeText(t); }catch(e){}
-  window.open('https://gemini.google.com/app','_blank','noopener');
-});
-
-// STEP4: QRコード生成（端末内で完結）
-if(wizState.url) $('pub-url').value = wizState.url;
-$('qr-gen').addEventListener('click', ()=>{
-  const url=$('pub-url').value.trim();
-  const err=$('qr-err'); err.textContent='';
-  if(!/^https:\/\//.test(url)){
-    err.textContent='https:// ではじまる公開リンクを貼り付けてください。';
-    $('qr-box').classList.remove('show');
-    return;
-  }
-  wizState.url=url; wizSave();
-  try{
-    const q=qrcode(0,'M'); q.addData(url); q.make();
-    const n=q.getModuleCount(), quiet=4, scale=8, size=(n+quiet*2)*scale;
-    const cv=$('qr-cv'); cv.width=size; cv.height=size;
-    const ctx=cv.getContext('2d');
-    ctx.fillStyle='#fff'; ctx.fillRect(0,0,size,size);
-    ctx.fillStyle='#000';
-    for(let r=0;r<n;r++)for(let c=0;c<n;c++)
-      if(q.isDark(r,c)) ctx.fillRect((c+quiet)*scale,(r+quiet)*scale,scale,scale);
-    $('qr-url-lbl').textContent=url;
-    $('qr-box').classList.add('show');
-    $('qr-box').scrollIntoView({behavior:'smooth',block:'nearest'});
-  }catch(e){
-    err.textContent='QRコードを生成できませんでした（URLが長すぎる可能性があります）。';
-  }
-});
-$('qr-dl').addEventListener('click', ()=>{
-  if(!$('qr-box').classList.contains('show')) return;
-  const a=document.createElement('a');
-  a.download='qr-gakushu-app.png';
-  a.href=$('qr-cv').toDataURL('image/png');
-  a.click();
-});
-$('qr-print').addEventListener('click', ()=>{
-  if(!$('qr-box').classList.contains('show')) return;
-  const img=$('qr-cv').toDataURL('image/png');
-  const url=($('qr-url-lbl').textContent||'').replace(/</g,'&lt;');
-  const w=window.open('','_blank');
-  if(!w){ $('qr-err').textContent='印刷ウィンドウを開けませんでした。ポップアップの許可を確認してください。'; return; }
-  w.document.write('<html><head><title>QRコード印刷</title></head>'
-    +'<body style="text-align:center;font-family:sans-serif;padding:40px">'
-    +'<h2 style="font-size:20px">がくしゅうアプリ QRコード</h2>'
-    +'<img src="'+img+'" style="width:70mm;height:70mm">'
-    +'<p style="font-size:12px;word-break:break-all">'+url+'</p>'
-    +'<p style="font-size:13px">iPadのカメラでよみとってください</p></body></html>');
-  w.document.close(); w.focus();
-  setTimeout(()=>w.print(), 300);
-});
-
-// 進捗リセット（次のアプリ制作用）
-$('wiz-reset').addEventListener('click', ()=>{
-  if(!confirm('ウィザードの進捗とQRコード用URLをリセットします。よろしいですか？')) return;
-  wizState.checks={}; wizState.url='';
-  wizSave();
-  wizChecks.forEach(c=>{ c.checked=false; syncChk(c); });
-  $('pub-url').value='';
-  $('qr-box').classList.remove('show');
-  $('qr-err').textContent='';
-  wizUpdate();
-  openPhase('a', false);
-});
-
-wizUpdate();
-// 初期表示：いま取り組むフェーズだけを開く
-openPhase(currentPhase() || 'd', false);
 </script>
 </body>
 </html>
