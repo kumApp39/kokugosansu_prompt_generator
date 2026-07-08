@@ -133,7 +133,7 @@
 
     <!-- ① 教科 -->
     <div class="field">
-      <div class="label"><span class="num">1</span>教科の選択</div>
+      <div class="label"><span class="num">1</span>教科の選択<span class="opt">任意</span></div>
       <div class="radios">
         <label class="radio jp" id="r-jp">
           <input type="radio" name="subject" value="国語">国語
@@ -146,21 +146,21 @@
 
     <!-- ② 段階 -->
     <div class="field">
-      <div class="label"><span class="num">2</span>段階の選択</div>
+      <div class="label"><span class="num">2</span>段階の選択<span class="opt">任意</span></div>
       <select id="stage" disabled><option value="">― まず教科を選んでください ―</option></select>
       <div class="preview" id="pv-stage"></div>
     </div>
 
     <!-- ③ ステップ／領域 -->
     <div class="field">
-      <div class="label"><span class="num">3</span>ステップ／領域の選択</div>
+      <div class="label"><span class="num">3</span>ステップ／領域の選択<span class="opt">任意</span></div>
       <select id="group" disabled><option value="">― まず段階を選んでください ―</option></select>
       <div class="preview" id="pv-group"></div>
     </div>
 
     <!-- ④ 詳細な指導内容 -->
     <div class="field">
-      <div class="label"><span class="num">4</span>詳細な指導内容の選択</div>
+      <div class="label"><span class="num">4</span>詳細な指導内容の選択<span class="opt">任意</span></div>
       <select id="detail" disabled><option value="">― まずステップ／領域を選んでください ―</option></select>
       <div class="preview" id="pv-detail"></div>
     </div>
@@ -178,7 +178,7 @@
       <div class="hint">好きなもの・組み込みたい機能（カメラ、スタンプ、タイマー等）を自由にどうぞ。</div>
     </div>
 
-    <button class="genbtn" id="gen" disabled>✨ 最適化プロンプトを生成する</button>
+    <button class="genbtn" id="gen">✨ 最適化プロンプトを生成する</button>
   </section>
 
   <!-- 右カラム：出力 -->
@@ -188,7 +188,7 @@
     <div id="out-empty">
       <div class="big">📝</div>
       <p><b>左側のフォームを入力し、プロンプトを生成してください。</b></p>
-      <p>4つの項目を選び、目標と要望を書いて<br>「生成する」ボタンを押すと、ここに表示されます。</p>
+      <p>すべての項目は任意です。ラーニングマップを選ばなくても、<br>目標や要望だけで「生成する」ことができます。</p>
     </div>
 
     <div id="out-result" class="hidden">
@@ -222,6 +222,7 @@ fetch('data/learning_map.json')
   .catch(e => {
     $('out-empty').innerHTML =
       '<div class="big">⚠️</div><p><b>データ（data/learning_map.json）を読み込めませんでした。</b></p>'+
+      '<p>ラーニングマップの選択は使えませんが、目標・要望の入力だけでプロンプト生成は可能です。</p>'+
       '<p>ローカルで開く場合は簡易サーバー経由で表示するか、GitHub Pages 上でご利用ください。</p>';
   });
 
@@ -248,7 +249,6 @@ function buildStages(subject){
   reset(elGroup,'― まず段階を選んでください ―');
   reset(elDetail,'― まずステップ／領域を選んでください ―');
   preview($('pv-stage'),''); preview($('pv-group'),''); preview($('pv-detail'),'');
-  checkReady();
 }
 
 elStage.addEventListener('change', ()=>{
@@ -256,30 +256,27 @@ elStage.addEventListener('change', ()=>{
   const subject=document.querySelector('input[name=subject]:checked').value;
   reset(elDetail,'― まずステップ／領域を選んでください ―');
   preview($('pv-group'),''); preview($('pv-detail'),'');
-  if(!elStage.value){ reset(elGroup,'― まず段階を選んでください ―'); checkReady(); return; }
+  if(!elStage.value){ reset(elGroup,'― まず段階を選んでください ―'); return; }
   const groups = MAP[subject][elStage.value];
   elGroup.innerHTML='<option value="">― ステップ／領域をえらぶ ―</option>'+
     groups.map((g,i)=>`<option value="${i}">${g.label}</option>`).join('');
   elGroup.disabled=false;
-  checkReady();
 });
 
 elGroup.addEventListener('change', ()=>{
   const subject=document.querySelector('input[name=subject]:checked').value;
   const groups = MAP[subject][elStage.value];
-  if(elGroup.value===''){ preview($('pv-group'),''); reset(elDetail,'― まずステップ／領域を選んでください ―'); checkReady(); return; }
+  if(elGroup.value===''){ preview($('pv-group'),''); reset(elDetail,'― まずステップ／領域を選んでください ―'); return; }
   const g = groups[+elGroup.value];
   preview($('pv-group'), `STEP${g.step}「${g.stepTheme}」／ 領域：${g.area}`);
   elDetail.innerHTML='<option value="">― 詳細な指導内容をえらぶ ―</option>'+
     g.details.map((d,i)=>`<option value="${i}">${d}</option>`).join('');
   elDetail.disabled=false;
   preview($('pv-detail'),'');
-  checkReady();
 });
 
 elDetail.addEventListener('change', ()=>{
   preview($('pv-detail'), elDetail.value!=='' ? currentDetailText() : '');
-  checkReady();
 });
 function currentDetailText(){
   const subject=document.querySelector('input[name=subject]:checked').value;
@@ -287,21 +284,16 @@ function currentDetailText(){
   return g.details[+elDetail.value];
 }
 
-function checkReady(){
-  const ok = document.querySelector('input[name=subject]:checked') &&
-             elStage.value && elGroup.value!=='' && elDetail.value!=='';
-  elGen.disabled = !ok;
-}
-
-// プロンプト生成
+// プロンプト生成（ラーニングマップの選択はすべて任意）
 elGen.addEventListener('click', ()=>{
-  const subject=document.querySelector('input[name=subject]:checked').value;
-  const stage=elStage.value;
-  const g=MAP[subject][elStage.value][+elGroup.value];
-  const detail=currentDetailText();
+  const sel=document.querySelector('input[name=subject]:checked');
+  const subject=sel?sel.value:'';
+  const stage=elStage.value||'';
+  const g=(MAP && subject && stage && elGroup.value!=='') ? MAP[subject][stage][+elGroup.value] : null;
+  const detail=(g && elDetail.value!=='') ? g.details[+elDetail.value] : '';
   const goal=($('goal').value.trim())||'（指導目標の記載なし）';
   const request=($('request').value.trim())||'（特になし。学習内容に集中したシンプルな構成でよい）';
-  const prompt = buildPrompt({subject,stage,step:g.step,stepTheme:g.stepTheme,area:g.area,detail,goal,request});
+  const prompt = buildPrompt({subject,stage,step:g?g.step:'',stepTheme:g?g.stepTheme:'',area:g?g.area:'',detail,goal,request});
   $('code').textContent = prompt;
   $('out-empty').classList.add('hidden');
   $('out-result').classList.remove('hidden');
@@ -309,25 +301,29 @@ elGen.addEventListener('click', ()=>{
 });
 
 function buildPrompt(d){
+  const lines=[];
+  if(d.subject) lines.push(`- 教科：${d.subject}`);
+  if(d.stage)   lines.push(`- 段階：${d.stage}`);
+  if(d.step)    lines.push(`- ステップ：STEP${d.step}「${d.stepTheme}」`);
+  if(d.area)    lines.push(`- 領域：${d.area}`);
+  if(d.detail)  lines.push(`- 指導項目（ねらいの中心）：${d.detail}`);
+  const mapBased = !!d.stage;
+  if(!mapBased) lines.push('- ラーニングマップの指定なし：下記の指導目標と要望をもとに、児童の実態に合う学習内容を設計すること');
+  lines.push(`- 指導目標：${d.goal}`);
+  lines.push(`- 児童の興味関心・仕様の要望：${d.request}`);
   return (
 `# 役割
 あなたは特別支援学校（知的障害）の児童生徒向け iPad 学習アプリを制作する専門エンジニアです。下記の【学習設計】と【絶対要件】を厳守し、外部依存のない単一HTMLファイル（HTML/CSS/JSをすべて内包）を、説明を最小限にして一発で完成させてください。
 
-# 学習設計（ラーニングマップ準拠）
-- 教科：${d.subject}
-- 段階：${d.stage}
-- ステップ：STEP${d.step}「${d.stepTheme}」
-- 領域：${d.area}
-- 指導項目（ねらいの中心）：${d.detail}
-- 指導目標：${d.goal}
-- 児童の興味関心・仕様の要望：${d.request}
+# 学習設計${mapBased?'（ラーニングマップ準拠）':''}
+${lines.join('\n')}
 
 # 絶対要件（この5つを厳守）
 1. 表記規則：画面に出る全テキスト（説明・ボタン・アラート含む）は「ひらがな・カタカナ」のみ。漢字・アルファベットは表示禁止。
-2. iPad操作最適化：<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> を指定。ダブルタップ拡大を無効化し、長押しの選択／コンテキストメニューをCSSで禁止（-webkit-touch-callout:none; -webkit-user-select:none; user-select:none;）。ボタンは指で押しやすい特大サイズにし、:active 時にへこむ物理的フィードバック（影・縮小・色変化）を必ず付ける。
-3. 埋め込み環境への適応：Googleサイトのiframe内ではFullscreen APIが使えないため、全画面APIは一切使わない。代わりに表示領域いっぱいに要素を絶対配置する擬似フルスクリーンとし、不要なスクロールバーを消す（html,body{height:100%;margin:0;overflow:hidden} ／ ルート要素 width:100vw; height:100vh; を基本とする）。
+2. iPad操作最適化：<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"> を指定。ダブルタップ拡大を無効化し、長押しの選択／コンテキストメニューをCSSで禁止（-webkit-touch-callout:none; -webkit-user-select:none; user-select:none;）。タップやスワイプで画面がスクロールしないようにする（html,body{overflow:hidden; overscroll-behavior:none} と touch-action:manipulation を全要素に指定し、必要に応じて document の touchmove を preventDefault する）。ボタンは指で押しやすい特大サイズにし、:active 時にへこむ物理的フィードバック（影・縮小・色変化）を必ず付ける。
+3. 画面内にぴったり収める：Googleサイトの「画面いっぱいに埋め込む」機能で全画面表示するため、アプリ内にフルスクリーンボタンや Fullscreen API は一切実装しない。アプリ全体が iPad の画面（表示領域）内に必ず収まるレイアウトにし、スクロールしなくてもすべての要素が見える・操作できるようにする（html,body{height:100%;margin:0;overflow:hidden} ／ ルート要素は幅100%・高さ100%を基本とし、中身は flex 等で画面内に配分する）。
 4. 足場かけ（ヒント）：児童が連続して不正解になったら、正解の選択肢やドロップ先がやさしく点滅・拡大して誘導するヒント機能を自動で実装し、パニックを防ぐ。
-5. 隠し教員用画面：画面上に教員用ボタンは一切置かない。「画面の左上すみを3秒間長押し」したときだけモーダルを表示する。モーダル内には【教育的根拠】として「${d.stage}／STEP${d.step} ${d.stepTheme}／領域：${d.area}／指導項目：${d.detail}／指導目標：${d.goal}」を明記し、学習プロセスの履歴を localStorage に保存して一覧表示、window.print() でA4一枚に印刷できるようにする。
+5. 隠し教員用画面（必要な場合のみ）：教員がアプリの設定を調整する機能（難易度の調整・アシスト設定の変更など）を実装する場合のみ用意する。その場合も画面上に教員用ボタンは一切置かず、「画面の左上すみを3秒間長押し」したときだけ設定モーダルを表示する。設定項目がないアプリでは実装しない。教育的根拠の表示や、学習プロセス履歴の保存・印刷機能は付けない。
 
 # 完成後の案内（重要）
 上記のコードブロックを出力したのち、チャットの続きで以下の形式に従って、指導者への「つぎの手順の案内」を必ず出力してください。
@@ -336,7 +332,7 @@ function buildPrompt(d){
 1. **GeminiのCanvas画面でコードを確認・改修する**
    出力されたアプリをCanvas上で確認してください。「イラストを大きくしてほしい」「効果音の代わりに文字を点滅させてほしい」などの修正があれば、このチャットでAIにそのまま自由に指示（改修指示）を出してください。
 2. **Googleサイトへ埋め込む**
-   納得のいくアプリが完成したら、右上の「コードをコピー」を押します。公開先のGoogleサイトの編集画面を開き、「埋め込み」＞「埋め込みコード」を選択して、コピーしたコードをそのまま貼り付けてください。
+   納得のいくアプリが完成したら、右上の「コードをコピー」を押します。公開先のGoogleサイトの編集画面を開き、「埋め込み」＞「埋め込みコード」を選択して、コピーしたコードをそのまま貼り付けてください。貼り付けたあと、埋め込みの設定で「画面いっぱいに埋め込む」を使い、ページ全体に表示されるようにしてください。
 3. **公開とiPadでの利用**
    Googleサイトを「公開」します。児童のiPadからそのページを開けば、すぐに授業や個別学習で活用できます！`
   );
